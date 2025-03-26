@@ -419,10 +419,10 @@
         <h1>LANI 堀江店<br>予約フォーム
         </h1>
         <div class="label">お客様名※必須</div>
-        <input type="text" id="name" placeholder="お名前を入力してください">
+        <input type="text" id="name" placeholder="お名前を入力してください" oninput="saveInput('name')">
 
         <div class="label">電話番号※必須</div>
-        <input type="tel" id="phone" placeholder="電話番号を入力してください">
+        <input type="tel" id="phone" placeholder="電話番号を入力してください" oninput="saveInput('phone')">
 
         <div class="label">ご来店回数※必須</div>
         <div class="visit-buttons">
@@ -584,8 +584,22 @@
             'カット＆髪質改善酸性矯正 ￥22,000': 180
         };
 
-
         let selectedMenuTime = 0;
+
+        // 入力内容をローカルストレージに保存
+        function saveInput(id) {
+            const value = document.getElementById(id).value;
+            localStorage.setItem(id, value);
+        }
+
+        // ページが読み込まれたときに前回の入力内容を復元
+        document.addEventListener('DOMContentLoaded', function () {
+            const savedName = localStorage.getItem('name');
+            const savedPhone = localStorage.getItem('phone');
+
+            if (savedName) document.getElementById('name').value = savedName;
+            if (savedPhone) document.getElementById('phone').value = savedPhone;
+        });
 
         function updateDisplayInfo() {
             const name = document.getElementById('name').value;
@@ -1047,11 +1061,11 @@ oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
 
                     // 18時以降に終了する予約を不可にする (火水木金のみ)
                     if ([3].includes(slotEnd.getDay())) { // 火:2, 水:3, 木:4, 金:5
-                        if (slotEnd.getHours() === 20 && slotEnd.getMinutes() > 30) {
+                        if (slotEnd.getHours() === 19 && slotEnd.getMinutes() > 30) {
                             cell.textContent = '✕';
                             cell.classList.add('unavailable');
                             continue;
-                        } else if (slotEnd.getHours() > 20) {
+                        } else if (slotEnd.getHours() > 19) {
                             cell.textContent = '✕';
                             cell.classList.add('unavailable');
                             continue;
