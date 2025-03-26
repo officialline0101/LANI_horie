@@ -1047,11 +1047,11 @@ oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
 
                     // 18時以降に終了する予約を不可にする (火水木金のみ)
                     if ([3].includes(slotEnd.getDay())) { // 火:2, 水:3, 木:4, 金:5
-                        if (slotEnd.getHours() === 13 && slotEnd.getMinutes() > 30) {
+                        if (slotEnd.getHours() === 20 && slotEnd.getMinutes() > 30) {
                             cell.textContent = '✕';
                             cell.classList.add('unavailable');
                             continue;
-                        } else if (slotEnd.getHours() > 13) {
+                        } else if (slotEnd.getHours() > 20) {
                             cell.textContent = '✕';
                             cell.classList.add('unavailable');
                             continue;
